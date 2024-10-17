@@ -1,0 +1,39 @@
+{%extends 'cart/base.html'%}
+
+
+
+{%block main_block%}
+
+
+<div class="container ">
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-3 text-center">
+            <div>
+                <a href="{%url 'address_create'%}" class="btn btn-outline-primary my-3">Add new address</a>
+            </div>
+            
+
+            {%for a in address%}
+            <div class="w-100 my-4 border border-3 p-3">
+               <div><h4 class="text-capitalize">{{a.name}}</h4><span><strong>{{a.label}}</strong></span></div>
+               {{a.house_no}},
+               
+               {{a.city}},
+               {{a.area}},
+               {{a.landmark}}
+               
+               Kerala-
+               {{a.pincode}} <br>
+               {{a.phone_number}} <br>
+               <a href="{%url 'address_delete' a.id%}" class="btn btn-outline-danger"> <i class="fa-solid fa-trash-can"></i></a>
+
+            </div>
+
+            {%endfor%}
+        </div>
+        <div class="col-4"></div>
+    </div>
+</div>
+
+{%endblock%}

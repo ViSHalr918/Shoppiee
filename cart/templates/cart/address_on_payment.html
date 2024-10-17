@@ -1,0 +1,22 @@
+{%extends 'cart/base.html'%}
+
+{%block main_block%}
+
+<div class="container">
+    <div class="row">
+        <div class="col-3"><a href="{%url 'select_address'%}">Back</a></div>
+        <div class="col-6">
+            <form action="" method="post" class="p-5 mt-4 border border-3 shadow">
+                {%csrf_token%}
+
+                {{form}}
+                <button type="submit" class="btn btn-outline-success mt-3">Next</button>
+            </form>
+        </div>
+        <div class="col-3"></div>
+    </div>
+    
+    
+</div>
+
+{%endblock%}

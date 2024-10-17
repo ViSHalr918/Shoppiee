@@ -1,0 +1,47 @@
+{%extends 'cart/base.html'%}
+
+{%block main_block%}
+
+<div class="container">
+    
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4"> 
+            <h3 class="text-center">Select Address</h3>
+            
+        
+            <a href="{%url 'address_on_payment'%}" class="btn btn-outline-primary my-2 form-control">Add new address</a>
+       
+        {%for a in address%}
+        <a href="{%url 'checkout'%}" class="text-decoration-none text-dark">
+        <div>
+            
+
+        
+        <div class="my-4 border border-3 p-3">
+           <div><h4 class="text-capitalize">{{a.name}}</h4><span><strong>{{a.label}}</strong></span></div>
+           {{a.house_no}},
+           
+           {{a.city}},
+           {{a.area}},
+           {{a.landmark}}
+           
+           Kerala-
+           {{a.pincode}} <br>
+           {{a.phone_number}} <br>
+           
+        </a>
+        </div>
+
+        {%endfor%}
+        </div>
+
+
+        </div>
+        <div class="col-4"></div>
+    </div>
+    <a href="{%url 'index'%}" class="text-decoration-none text-dark mx-4">Back to home</a>
+    <a href="{%url 'cart_items' %}" class="text-decoration-none text-dark">Back to cart</a>
+</div>
+
+{%endblock%}

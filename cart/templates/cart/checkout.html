@@ -1,0 +1,19 @@
+{%extends 'cart/base.html'%}
+
+{%block main_block%}
+
+<div class="container">
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4 border border-3 shadow p-5 mt-5 ">
+        <h3 class="text-center">Payment Method</h3>
+
+<button class="btn btn-outline-success my-3 mx-auto">Pay with Razorpay</button> <br>
+<button class="btn btn-outline-primary my-3">Cash on Delivery</button>
+        </div>
+        <div class="col-4"></div>
+    </div>
+    <a href="{%url 'select_address'%}">back</a>
+</div>
+
+{%endblock%}
