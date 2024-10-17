@@ -1,13 +1,11 @@
 {%extends 'cart/base.html'%}
 
 {%block main_block%}
+<!-- {%load static%} -->
 
-
-{%load static%} 
-
-    
- 
-    <!-- <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+    <!-- <h1>Index</h1> -->
+<!-- 
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
           <div class="carousel-item active">
             <img src="{% static 'images/image1.jpg' %}" class="d-block w-100" alt="...">
@@ -27,7 +25,7 @@
  
     <div class="container">
         <div class="row">
-            {%for w in works%}
+            {%for w in Sports%}
             <div class="col-3 my-4">
                 <form action="">
                     <div class="card" style="width: 18rem;">
@@ -41,7 +39,7 @@
                           <p class="card-title text-capitalize">{{w.title}}</p>
                           <p class="card-text">{{w.price}}<strong>₹</strong></p>
                           
-                          <!-- <p class="card-text"><strong>Seller : </strong>{{w.owner}}</p> -->
+                          <p class="card-text"><strong>Seller : </strong>{{w.owner}}</p>
                           
 
                           <a href="{%url 'product_detail' w.id%}" class="btn btn-outline-primary">See More</a>

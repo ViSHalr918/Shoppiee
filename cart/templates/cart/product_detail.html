@@ -22,6 +22,23 @@
                       <h3 class="card-title text-capitalize">{{work.price}}<strong>₹</strong></h3>
                       <a href="{%url 'select_address'%}" class="btn btn-success">Buy Now</a>
                       <a href="{%url 'add_to_wishlist' work.id%}" class="btn btn-primary" >Add To Cart</a> <br> <br>
+                      <p>
+                        <a  class="text-decoration-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+                         About Seller
+                        </a>
+                      </p>
+                      <div style="min-height: 120px;">
+                      
+                        <div class="collapse collapse-horizontal" id="collapseWidthExample">
+                       
+
+                          <div class="card card-body" style="width: 300px;">
+                            Name : {{request.user}} <br>
+                            Contact : {{request.user.email}} <br>
+                            
+                          </div>
+                        </div>
+                      </div>
                       
                       
                       <!-- <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p> -->

@@ -2,6 +2,9 @@
 
 {%block main_block%}
 
+<div class="container-fluid">
+  <a href="{%url 'index'%}" class=" my-3 text-decoration-none"> <i class="fa-solid fa-arrow-left"></i> Back</a>
+</div>
 <div class="container">
     {%for wi in cart_items%}
 
@@ -11,7 +14,7 @@
         <div class="card mb-3" style="max-width: 80;">
             <div class="row g-0">
               <div class="col-md-2 w-20">
-                <img src="{{wi.image.url}}" class="img-fluid rounded-start" alt="..." class="col-md-2 w-20">
+                <img src="{{wi.product_object.image.url}}" class="img-fluid rounded-start" alt="..." class="col-md-2 w-20">
               </div>
               <div class="col-md-8">
                 <div class="card-body mx-5">
@@ -20,7 +23,7 @@
                     <p class="card-text text-capitalize"><strong>{{wi.product_object.price}}₹</strong></p>
                     <p class="card-text text-capitalize">Seller : {{wi.product_object.owner}}</p>
 
-                    <a href="{%url 'cartitem_delete' wi.product_object.id%}" class="btn btn-outline-danger">Remove</a>
+                    <a href="{%url 'cartitem_delete' wi.id%}" class="btn btn-outline-danger">Remove</a>
                     <a href="{%url 'product_detail' wi.product_object.id%}" class="btn btn-outline-primary mx-3">View</a>
                 </div>
               </div>

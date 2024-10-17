@@ -1,13 +1,11 @@
 {%extends 'cart/base.html'%}
 
 {%block main_block%}
+<!-- {%load static%} -->
 
-
-{%load static%} 
-
-    
- 
-    <!-- <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+    <!-- <h1>Index</h1> -->
+<!-- 
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
           <div class="carousel-item active">
             <img src="{% static 'images/image1.jpg' %}" class="d-block w-100" alt="...">
@@ -27,25 +25,25 @@
  
     <div class="container">
         <div class="row">
-            {%for w in works%}
+            {%for e in Electronics%}
             <div class="col-3 my-4">
                 <form action="">
                     <div class="card" style="width: 18rem;">
                         <div class=" w-50  mx-auto " >
 
-                            <img src={{w.image.url}} alt=""  class="w-100 h-10" height="180px " width="180px">
+                            <img src={{e.image.url}} alt=""  class="w-100 h-10" height="180px " width="180px">
         
                         </div>
                         <div class="card-body p-3">
-                          <h5 class="card-title text-capitalize">{{w.brand}}</h5>
-                          <p class="card-title text-capitalize">{{w.title}}</p>
-                          <p class="card-text">{{w.price}}<strong>₹</strong></p>
+                          <h5 class="card-title text-capitalize">{{e.brand}}</h5>
+                          <p class="card-title text-capitalize">{{e.title}}</p>
+                          <p class="card-text">{{e.price}}<strong>₹</strong></p>
                           
-                          <!-- <p class="card-text"><strong>Seller : </strong>{{w.owner}}</p> -->
+                          <p class="card-text"><strong>Seller : </strong>{{e.owner}}</p>
                           
 
-                          <a href="{%url 'product_detail' w.id%}" class="btn btn-outline-primary">See More</a>
-                          <a href="{%url 'add_to_wishlist' w.id%}" class="btn btn-outline-success ms-3">Add to Cart</a>
+                          <a href="{%url 'product_detail' e.id%}" class="btn btn-outline-primary">See More</a>
+                          <a href="{%url 'add_to_wishlist' e.id%}" class="btn btn-outline-success ms-3">Add to Cart</a>
                         </div>
                       </div>
                 </form>

@@ -4,13 +4,40 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-3"><a href="{%url 'select_address'%}">Back</a></div>
+        <div class="col-3">
+            <a href="{%url 'select_address'%}" class="text-decoration-none"> <i class="fa-solid fa-arrow-left"></i> Back</a>
+        </div>
+
         <div class="col-6">
-            <form action="" method="post" class="p-5 mt-4 border border-3 shadow">
+            <!-- <form action="" method="post" class="p-5 mt-4 border border-3 shadow">
                 {%csrf_token%}
 
                 {{form}}
                 <button type="submit" class="btn btn-outline-success mt-3">Next</button>
+            </form> -->
+
+            <form action="" method="post" class="p-5 mt-4 border border-3 shadow">
+                {%csrf_token%}
+                <h4 class="text-center mb-4">ADD YOUR ADDRESS</h4>
+
+                <!-- {{form}} -->
+                <div class="row">
+                    <div class="col-6">Name : {{form.name}}</div>
+                    <div class="col-6">City : {{form.city}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-6">Area : {{form.area}}</div>
+                    <div class="col-6">Pincode : {{form.pincode}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-6">House no : {{form.house_no}}</div>
+                    <div class="col-6">Landmark : {{form.landmark}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-6">Phone : {{form.phone_number}}</div>
+                    <div class="col-6">Label : {{form.label}}</div>
+                </div>
+                <button type="submit" class="btn btn-outline-success mt-3 form-control">Confirm</button>
             </form>
         </div>
         <div class="col-3"></div>

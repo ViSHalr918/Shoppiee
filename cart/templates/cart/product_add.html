@@ -5,12 +5,29 @@
 <div class="container">
     <div class="row">
         <div class="col-3"></div>
-        <div class="col-6">
+        <div class="col-6 border border-2 shadow mt-4">
+            <h3 class="text-center my-4 ">POST YOUR AD</h3>
 
-            <form action="" method="post" enctype="multipart/form-data" class="  p-5">
+            <form action="" method="post" enctype="multipart/form-data" class="  p-4">
                 {%csrf_token%}
-                {{form}}
-                <button type="submit" class="btn btn-outline-primary ">Confirm</button>
+                <!-- {{form}} -->
+                <div class="row">
+                    <div class="col-6">Brand :  {{form.brand}}</div>
+                    <div class="col-6">Title : {{form.title}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-12">Description : {{form.description}}</div>
+                    
+                </div>
+
+                <div class="row">
+                    <div class="col-6">Price : {{form.price}}</div>
+                    <div class="col-6">Image : {{form.image}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-12">Category : {{form.category}}</div>
+                </div>
+                <button type="submit" class="btn btn-outline-primary  mt-2">Confirm</button>
             </form>
             
         </div>

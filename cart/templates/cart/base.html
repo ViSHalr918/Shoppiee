@@ -15,7 +15,7 @@
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-          <a class="navbar-brand me-5" href="{%url 'index'%}"><samp>Shoppie </samp> <i class="fa-brands fa-shopware" style="color: blueviolet;"></i></a>
+          <a class="navbar-brand me-5" href="{%url 'index'%}"><i class="fa-brands fa-shopware" style="color: blueviolet;"></i> <samp>Shoppie </samp> </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -30,17 +30,17 @@
 
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Dropdown <i class="fa-solid fa-circle-chevron-down"></i>
+                  Categories <i class="fa-solid fa-circle-chevron-down"></i>
                 </a>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="{%url 'index'%}">All</a></li>
-                  <li><a class="dropdown-item" href="#">Mobiles & Accessories</a></li>
-                  <li><a class="dropdown-item" href="#">Vechicles</a></li>
-                  <li><a class="dropdown-item" href="#">Electronics & Appliances</a></li>
-                  <li><a class="dropdown-item" href="#">Furniture</a></li>
+                  <li><a class="dropdown-item" href="{%url 'mobile'%}">Mobiles & Accessories</a></li>
+                  <li><a class="dropdown-item" href="{%url 'Vechicles'%}">Vechicles</a></li>
+                  <li><a class="dropdown-item" href="{%url 'electronics'%}">Electronics & Appliances</a></li>
+                  <li><a class="dropdown-item" href="{%url 'Furniture'%}">Furniture</a></li>
                   <li><a class="dropdown-item" href="#">Fashion</a></li>
                   <li><a class="dropdown-item" href="#">Books & Hobbies</a></li>
-                  <li><a class="dropdown-item" href="#">Sports</a></li>
+                  <li><a class="dropdown-item" href="{%url 'Sports'%}">Sports</a></li>
                   <li><a class="dropdown-item" href="#">Pet Food & Accessories</a></li>
                   <!-- <li><hr class="dropdown-divider"></li> -->
                   <!-- <li><a class="dropdown-item" href="#">Something else here</a></li> -->
@@ -58,9 +58,17 @@
 
             <form class="d-flex" role="search">
                 {{request.user}}
-              <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" aria-disabled="true"> -->
+            
             <a href="{%url 'cart_items'  %}" class="btn btn-outline-success mx-2"><i class="fa-solid fa-cart-shopping"></i></a>
+            <a href="{%url 'address'  %}" class="btn btn-outline-success mx-2"><i class="fa-regular fa-address-book"></i></a>
+
+
+
+
+
+            
             <a href="{%url 'product-add'  %}" class="btn btn-outline-success mx-2">Sell</a>
+
             <a href="{%url 'profile' request.user.profile.id %}" class="btn btn-outline-success mx-3"><i class="fa-solid fa-user"></i></a>
 
             <a href="{%url 'logout'%}" class="btn btn-outline-danger"> <i class="fa-solid fa-right-from-bracket" style="color: black;"></i></a>

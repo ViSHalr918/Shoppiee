@@ -76,6 +76,47 @@ class IndexView(View):
         qs = Product.objects.all().exclude(owner=request.user)
 
         return render(request,"cart/index.html",{"works":qs})
+    
+
+class MobilesAccessories_view(View):
+
+    def get(self,request):
+
+        qs = Product.objects.filter(category = "Mobiles & Accessories")
+
+        return render(request,"cart/mobile.html",{"mobile":qs})
+    
+class Electronics_view(View):
+
+    def get(self,request):
+
+        qs = Product.objects.filter(category = "Electronics & Appliances")
+
+        return render(request,"cart/Electronics.html",{"Electronics":qs})
+    
+class VechiclesView(View):
+
+    def get(self,request):
+
+        qs = Product.objects.filter(category = "Vechicles")
+
+        return render(request,"cart/Vechicles.html",{"Vechicles":qs})
+    
+class SportsView(View):
+
+    def get(self,request):
+
+        qs = Product.objects.filter(category = "Sports")
+
+        return render(request,"cart/Sports.html",{"Sports":qs})
+    
+class FurnitureView(View):
+
+    def get(self,request):
+
+        qs = Product.objects.filter(category = "Furniture")
+
+        return render(request,"cart/Furniture.html",{"Furniture":qs})
 
 
 class UserProfileUpdateView(UpdateView):
@@ -114,7 +155,7 @@ class AddressCreateView(View):
             form_instance.instance.user_object=request.user
             form_instance.save()
             print("address added successfully")
-            return redirect("index")
+            return redirect("address")
         else:
             return render(request,"cart/address_create.html",{"form":form_instance})
         
@@ -185,11 +226,11 @@ class AddToWishListItemsView(View):
 
         id = kwargs.get("pk")
 
-        project_obj = Product.objects.get(id=id)
+        product_obj = Product.objects.get(id=id)
 
         WishListItems.objects.create(
                                         wishlist_object = request.user.basket,
-                                        product_object = project_obj
+                                        product_object = product_obj
 
         )
 
@@ -258,8 +299,12 @@ class CheckOutView(View):
         print(payment)
 
         context = {
-            
+            "key": KEY_ID,
+            "amount":data.get("amount"),
+            "currency" : data.get("currency"),
+            "order_id" : payment.get("id")
+
         }
 
-        return render(request,"cart/checkout.html")
+        return render(request,"cart/checkout.html",context)
 

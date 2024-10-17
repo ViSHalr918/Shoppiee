@@ -43,6 +43,7 @@ class UserProfileForm(forms.ModelForm):
 
 
 class ProductForm(forms.ModelForm):
+    
 
     class Meta:
         model = Product
@@ -52,8 +53,11 @@ class ProductForm(forms.ModelForm):
             "brand":forms.TextInput(attrs={"class":"form-control mb-3"}),
             "title":forms.TextInput(attrs={"class":"form-control mb-3"}),
             "description":forms.Textarea(attrs={"class":"form-control mb-3","rows":5}),
-            "image":forms.FileInput(attrs={"class":"form-control mb-3 mt-3"}),
+            "image":forms.FileInput(attrs={"class":"form-control mb-3"}),
             "price":forms.NumberInput(attrs={"class":"form-control mb-3"}),
+            "category":forms.Select(attrs={"class":"form-control mb-3"}),
+            
+
             
         }
 
@@ -67,8 +71,13 @@ class AddressForm(forms.ModelForm):
     phone_number= forms.CharField(widget=forms.TextInput(attrs={"class":"form-control mb-2","placeholder":"Enter your Mobile Number"}))
     landmark= forms.CharField(widget=forms.TextInput(attrs={"class":"form-control mb-2","placeholder":"Eg : Near Church"}))
 
+
     class Meta:
         model = Address
 
         exclude = ["user_object","create_date","update_date","is_active"]
+
+        widgets = {
+            "label":forms.Select(attrs={"class":"form-control"})
+        }
 

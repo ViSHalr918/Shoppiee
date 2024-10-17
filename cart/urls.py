@@ -14,7 +14,16 @@ urlpatterns = [
 
     path("logout",views.LogoutView.as_view(),name="logout"),
 
-    path("index",views.IndexView.as_view(),name="index"),
+    path("index/",views.IndexView.as_view(),name="index"),
+
+    path("mobiles",views.MobilesAccessories_view.as_view(),name="mobile"),
+
+    path("electronics",views.Electronics_view.as_view(),name="electronics"),
+
+    path("Vechicles",views.VechiclesView.as_view(),name="Vechicles"),
+
+    path("Sports/",views.SportsView.as_view(),name="Sports"),
+    path("Furniture/",views.FurnitureView.as_view(),name="Furniture"),
 
     path("profile_edit/<int:pk>",views.UserProfileUpdateView.as_view(),name="profile"),
 
