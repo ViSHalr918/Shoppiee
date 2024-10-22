@@ -23,8 +23,8 @@ var options = {
     "order_id": "{{order_id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
     "callback_url": "http://127.0.0.1:8000/payment/verification/",
     "prefill": {
-        "name": "Gaurav Kumar",
-        "email": "gaurav.kumar@example.com",
+        "name": "{{request.user}}",
+        "email": "{{request.user.email}}",
         "contact": "9000090000"
     },
     "notes": {

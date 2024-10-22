@@ -6,7 +6,9 @@
 
 <div class="container">
     <div class="row mt-5">
-        <div class="col-2"></div>
+        <div class="col-2">
+          <a href="{%url 'index'%}" class="text-decoration-none"> <i class="fa-solid fa-arrow-left"></i> Back</a>
+        </div>
         <div class="col-8">
             
             <div class="card mb-3 p-5" style="max-width: 100;">
@@ -20,25 +22,9 @@
                       <h2 class="card-title text-capitalize">{{work.title}}</h2>
                       <p class="card-text text-capitalize">{{work.description}}</p>
                       <h3 class="card-title text-capitalize">{{work.price}}<strong>₹</strong></h3>
-                      <a href="{%url 'select_address'%}" class="btn btn-success">Buy Now</a>
-                      <a href="{%url 'add_to_wishlist' work.id%}" class="btn btn-primary" >Add To Cart</a> <br> <br>
-                      <p>
-                        <a  class="text-decoration-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
-                         About Seller
-                        </a>
-                      </p>
-                      <div style="min-height: 120px;">
                       
-                        <div class="collapse collapse-horizontal" id="collapseWidthExample">
-                       
-
-                          <div class="card card-body" style="width: 300px;">
-                            Name : {{products.owner}} <br>
-                            Contact :<br>
-                            
-                          </div>
-                        </div>
-                      </div>
+                      <a href="{%url 'add_to_wishlist' work.id%}" class="btn btn-primary" >Add To Cart</a> <br> <br>
+                      
                       
                       
                       <!-- <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p> -->

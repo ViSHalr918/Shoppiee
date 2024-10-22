@@ -57,7 +57,9 @@ urlpatterns = [
 
     path("order_summary",views.MyPurchaseView.as_view(),name="order_summary"),
 
-    path("cash_on/delivery/",views.Cash_On_DeliveryView.as_view(),name="cash_on_delivery")
+    path("cash_on/delivery/",views.Cash_On_DeliveryView.as_view(),name="cash_on_delivery"),
+
+    # path("order_detail/<int:pk>",views.OrderDetailView.as_view(),name="order_detail")
     
 
     

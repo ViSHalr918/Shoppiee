@@ -75,9 +75,7 @@ class LogoutView(View):
     def get(self,request):
         logout(request)
         return redirect("login")
-    
-
-           
+               
 class IndexView(View):
     
     def get(Self,request,*args,**kwargs):
@@ -146,9 +144,6 @@ class AddressView(View):
         qs = Address.objects.filter(user_object=request.user)
 
         return render(request,"cart/address.html",{"address":qs})
-
-
-
 
 class AddressCreateView(View):
     def get(self,request,*args,**kwargs):
@@ -291,11 +286,7 @@ class SelectAddressOnPayment(View):
             return redirect("checkout")
         else:
             return render(request,"cart/address_on_payment.html",{"form":form_instance})
-
-
-    
-
-    
+  
 import razorpay
 
  
@@ -312,7 +303,6 @@ class CheckOutView(View):
         
         payment = client.order.create(data=data)
 
-        # print(payment)
         
         cart_items = request.user.basket.basket_item.filter(is_order_placed = False)
 
@@ -322,16 +312,10 @@ class CheckOutView(View):
                 order_id = payment.get("id"),
                 total = request.user.basket.wishlist_total()
         )
-
-        # (cart_items.values("product_object"))
-
+       
         for ci in cart_items:
             Order_summary_obj.product_objects.add(ci.product_object)
 
-        for ci in cart_items:
-            ci.is_order_placed=True
-
-            ci.save()
    
         context = {
             "key": KEY_ID,
@@ -342,7 +326,7 @@ class CheckOutView(View):
         }
 
         return render(request,"cart/checkout.html",context)
-        
+            
 @method_decorator(csrf_exempt,name='dispatch')
 class PaymentVerificationView(View):    
 
@@ -366,6 +350,13 @@ class PaymentVerificationView(View):
 
             OrderSummary.objects.filter(order_id = order_id).update(is_paid=True)
 
+            cart_items = request.user.basket.basket_item.filter(is_order_placed=False)
+
+            for ci in cart_items:
+                ci.is_order_placed = True
+
+                ci.save()
+
         except : 
 
             print("unsuccess")        
@@ -379,6 +370,8 @@ class Cash_On_DeliveryView(View):
 
     def get(self,request):
 
+        
+
         cart_items = request.user.basket.basket_item.filter(is_order_placed = False)
 
         delivery_obj = Cash_On_Delivery.objects.create(
@@ -386,16 +379,26 @@ class Cash_On_DeliveryView(View):
         )
 
         for ci in cart_items:
+
             delivery_obj.product_objects.add(ci.product_object)
 
         for ci in cart_items:
+
             ci.is_order_placed=True
 
             ci.save()
 
         return redirect("index")
     
+class Cash_Delivery_verificatinView(View):
 
+    def post(request,self):
+
+        print(request.POST)
+
+        return redirect("index")
+        
+    
 class MyPurchaseView(ListView):
     model = OrderSummary
     context_object_name = "orders"
@@ -410,6 +413,23 @@ class MyPurchaseView(ListView):
 
         return render(request,"cart/order_summary.html",{"orders":qs})
     
+# class OrderDetailView(View):
+
+#     def get(self,request,kwargs):
+
+#         id = kwargs.get("pk")
+
+#         qs = OrderSummary.objects.filter(
+#             user_object = request.user,
+#             is_paid = True
+
+#         )
+
+#         order = qs.objects.get(id=id)
+
+
+#         return render(request,"cart/order_details.html",{"order":order})
+
 
 
 

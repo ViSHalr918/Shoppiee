@@ -2,13 +2,6 @@
 
 {%block main_block%}
 
-
-
-
-
-
-
-
 <div class="container-fluid">
     <div class="row">
         <a href="{%url 'index'%}" class="text-decoration-none"> <i class="fa-solid fa-arrow-left"></i> Back</a>
@@ -31,20 +24,29 @@
                 <div class="card-body ms-5">
                   <h5 class="card-title">{{p.title}}</h5>
                   <p class="card-text text-dark"><strong>Price : {{p.price}} ₹</strong></p>
-                  
-                  
-                  
+                                                   
+                  <p>
+                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+                      Order details
+                  </button>
+                    <a href="{%url 'product_detail' p.id%}" class="btn btn-primary">View</a>
+                  </p>
+                  <div style="min-height: 0px;">
+                    <div class="collapse collapse-horizontal" id="collapseWidthExample">
+                      <div  style="width: 300px;">
+                        <p class="card-text"><small class="text-body-dark">Order id :  {{o.order_id}}</small></p>
 
-                  <p class="card-text"><small class="text-body-dark">Order id :  {{o.order_id}}</small></p>
-
-                  <p class="card-text"><small class="text-body-dark">Ordered Date :  {{o.create_date}}</small></p>
-                  <p class="card-text"><small class="text-body-dark">Order Status : 
-                    {%if o.is_paid%}
-                    Payment Completed
-                    {%else%}
-                    Payment Incomplete
-                    {%endif%}
-                </small></p>
+                        <p class="card-text"><small class="text-body-dark">Ordered Date :  {{o.create_date}}</small></p>
+                        <p class="card-text"><small class="text-body-dark">Order Status : 
+                          {%if o.is_paid%}
+                          Payment Completed
+                          {%else%}
+                          Payment Incomplete
+                          {%endif%}
+                      </small></p>
+                      </div>
+                    </div>
+                  </div>
                 
 
                 </div>
@@ -55,11 +57,6 @@
           
     </div>
     
-    {%endfor%}
-
-        
-        
-        
-
-
+    {%endfor%}  
+           
 {%endblock%}
