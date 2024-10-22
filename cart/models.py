@@ -2,6 +2,10 @@ from django.db import models
 
 from django.contrib.auth.models import User
 
+from django.db.models import Sum
+
+import uuid
+
 
 from django.db.models.signals import post_save
 
@@ -116,6 +120,24 @@ class Product(models.Model):
         return self.title
     
 
+class Cash_On_Delivery(models.Model):
+
+    owner = models.ForeignKey(User,on_delete=models.CASCADE,related_name="cash")
+
+    product_objects = models.ManyToManyField(Product)
+
+    order_id = models.UUIDField(max_length=100,default=uuid.uuid4(),null=True)
+
+    is_paid = models.BooleanField(default=False)
+
+    create_date = models.DateTimeField(auto_now=True)
+
+    update_date = models.DateTimeField(auto_now_add=True)
+
+    is_active   = models.BooleanField(default=True)
+
+
+
 
 class WishList(models.Model):
 
@@ -127,6 +149,8 @@ class WishList(models.Model):
 
     is_active   = models.BooleanField(default=True)
 
+    def wishlist_total(self):
+        return self.basket_item.filter(is_order_placed=True).values("product_object__price").aggregate(total=Sum("product_object__price")).get('total')
 
 
 
@@ -162,6 +186,8 @@ class OrderSummary(models.Model):
     update_date = models.DateTimeField(auto_now_add=True)
 
     is_active   = models.BooleanField(default=True)
+
+    total = models.FloatField(null=True)
 
 
 

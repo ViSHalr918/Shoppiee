@@ -11,19 +11,23 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-4"></div>
-            <div class="col-4">
-                <form action="" method="post">
+            <div class="col-3"></div>
+            <div class="col-6">
+                <form action="" method="post" class="border border-3 shadow p-5 mt-5">
+
+                    <h3 class="text-center">Register</h3>
 
                     {%csrf_token%}
                 
                     {{form}}
-                    <button>Sign Up</button>
+                    <button class="btn btn-outline-success form-control mb-4">Sign Up</button>
+
+                    <p>Already have an account..! <a href="{%url 'login'%}">Log In</a></p>
                 
                 
                 </form>
             </div>
-            <div class="col-4"></div>
+            <div class="col-3"></div>
         </div>
     </div>
 </body>

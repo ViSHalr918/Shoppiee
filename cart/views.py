@@ -4,13 +4,19 @@ from django.urls import reverse_lazy
 
 from django.db.models import Sum
 
-from django.views.generic import View,UpdateView,CreateView
+from django.views.generic import View,UpdateView,CreateView,ListView
 
 from cart.forms import SignUpForm,LoginForm,UserProfileForm,ProductForm,AddressForm
 
-from cart.models import UserProfile,Product,WishListItems,Address
+from cart.models import UserProfile,Product,WishListItems,Address,OrderSummary,Cash_On_Delivery
 
 from django.contrib.auth import authenticate,login,logout
+
+from django.views.decorators.csrf import csrf_exempt
+
+from django.utils.decorators import method_decorator
+
+
 
 
 KEY_ID = 'rzp_test_GRFSxyS5rYy9tz'
@@ -69,8 +75,11 @@ class LogoutView(View):
     def get(self,request):
         logout(request)
         return redirect("login")
-            
+    
+
+           
 class IndexView(View):
+    
     def get(Self,request,*args,**kwargs):
 
         qs = Product.objects.all().exclude(owner=request.user)
@@ -288,16 +297,42 @@ class SelectAddressOnPayment(View):
 
     
 import razorpay
+
+ 
 class CheckOutView(View):
-    def get(self,request):
+    def get(self,request,*args,**kwargs):
+
         client = razorpay.Client(auth=(KEY_ID, KEY_SECRET))
-        Total = request.user.basket.basket_item.filter(is_order_placed=False).values("product_object__price").aggregate(total=Sum("product_object__price")).get('total')*100
+
+        Total = request.user.basket.basket_item.filter(is_order_placed=False).values("product_object__price").aggregate(total=Sum("product_object__price")).get('total') * 100
+
+        
 
         data = { "amount": Total, "currency": "INR", "receipt": "order_rcptid_11" }
-
+        
         payment = client.order.create(data=data)
-        print(payment)
 
+        # print(payment)
+        
+        cart_items = request.user.basket.basket_item.filter(is_order_placed = False)
+
+        Order_summary_obj = OrderSummary.objects.create(
+
+                user_object = request.user,
+                order_id = payment.get("id"),
+                total = request.user.basket.wishlist_total()
+        )
+
+        # (cart_items.values("product_object"))
+
+        for ci in cart_items:
+            Order_summary_obj.product_objects.add(ci.product_object)
+
+        for ci in cart_items:
+            ci.is_order_placed=True
+
+            ci.save()
+   
         context = {
             "key": KEY_ID,
             "amount":data.get("amount"),
@@ -307,4 +342,75 @@ class CheckOutView(View):
         }
 
         return render(request,"cart/checkout.html",context)
+        
+@method_decorator(csrf_exempt,name='dispatch')
+class PaymentVerificationView(View):    
+
+    def post(self,request,*args,**kwargs):
+
+        # {'razorpay_payment_id': ['pay_PBuAjfaSaipLFR'],
+        #   'razorpay_order_id': ['order_PBuAU2e0nsMGBT'],
+        #   'razorpay_signature': ['ab80a3d081dfffd9697098fa993131f813bc85a4ad7e9d6252ff6bf041f85b70']}
+
+
+
+        print(request.POST)
+        client = razorpay.Client(auth=(KEY_ID, KEY_SECRET))
+        order_summary_object = OrderSummary.objects.get(order_id = request.POST.get("razorpay_order_id"))
+        login(request,order_summary_object.user_object)
+
+        try : 
+            client.utility.verify_payment_signature(request.POST)
+            print("success")
+            order_id = request.POST.get("razorpay_order_id")
+
+            OrderSummary.objects.filter(order_id = order_id).update(is_paid=True)
+
+        except : 
+
+            print("unsuccess")        
+        
+
+        # return render(request,"cart/success.html")
+    
+        return redirect("index")
+    
+class Cash_On_DeliveryView(View):
+
+    def get(self,request):
+
+        cart_items = request.user.basket.basket_item.filter(is_order_placed = False)
+
+        delivery_obj = Cash_On_Delivery.objects.create(
+                    owner = request.user,
+        )
+
+        for ci in cart_items:
+            delivery_obj.product_objects.add(ci.product_object)
+
+        for ci in cart_items:
+            ci.is_order_placed=True
+
+            ci.save()
+
+        return redirect("index")
+    
+
+class MyPurchaseView(ListView):
+    model = OrderSummary
+    context_object_name = "orders"
+
+    def get(self,request):
+
+        qs = OrderSummary.objects.filter(
+            user_object = request.user,
+            is_paid = True
+
+        ).order_by('-id')
+
+        return render(request,"cart/order_summary.html",{"orders":qs})
+    
+
+
+
 

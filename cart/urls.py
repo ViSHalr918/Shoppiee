@@ -51,7 +51,13 @@ urlpatterns = [
 
     path('select/address/on_payment',views.SelectAddressOnPayment.as_view(),name="address_on_payment"),
 
-    path('checkout',views.CheckOutView.as_view(),name="checkout")
+    path('checkout/',views.CheckOutView.as_view(),name="checkout"),
+
+    path("payment/verification/",views.PaymentVerificationView.as_view(),name="payment_verification"),
+
+    path("order_summary",views.MyPurchaseView.as_view(),name="order_summary"),
+
+    path("cash_on/delivery/",views.Cash_On_DeliveryView.as_view(),name="cash_on_delivery")
     
 
     

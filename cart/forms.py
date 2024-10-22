@@ -8,8 +8,10 @@ from cart.models import UserProfile,Product,Address
 
 
 class SignUpForm(UserCreationForm):
-    password1 = forms.CharField(widget=forms.PasswordInput(attrs={"class":"form-control"}),label="Enter Password")
-    password2= forms.CharField(widget=forms.TextInput(attrs={"class":"form-control"}))
+    username = forms.CharField(widget=forms.TextInput(attrs={"class":"form-control mb-3","placeholder":"Enter username"}))
+    password1 = forms.CharField(widget=forms.PasswordInput(attrs={"class":"form-control mb-3","placeholder":"Enter Password"}),label="Enter Password")
+    password2= forms.CharField(widget=forms.TextInput(attrs={"class":"form-control mb-3","placeholder":"Confirm Password"}),label='Confirm Password')
+    email =  forms.EmailField(widget=forms.EmailInput(attrs={"class":"form-control mb-3","placeholder":"Enter Email"}),label='Enter Your Email')
 
     class Meta:   
 
@@ -17,11 +19,7 @@ class SignUpForm(UserCreationForm):
 
         fields = ["username","password1","password2","email"]
 
-        widgets = {
-            "username":forms.TextInput(attrs={"class":"form-control"}),
-            "email":forms.TextInput(attrs={"class":"form-control"}),
-        }
-
+        
 class LoginForm(forms.Form):
 
     username = forms.CharField(widget=forms.TextInput(attrs={"class":"form-control"}))

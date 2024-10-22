@@ -2,13 +2,15 @@
 
 {%block main_block%}
 
+
 <div class="container">
     <div class="row">
         <div class="col-4"></div>
-        <div class="col-4 border border-3 shadow p-5 mt-5 ">
-        <h3 class="text-center">Select Payment Method</h3>
-
-        <button id="rzp-button1" class="btn btn-outline-primary">Pay with Razorpay</button>
+        <div class="col-4 mt-5 border border-3 shadow p-5" >
+            <h3 class="my-4">Choose Payment Method</h3>
+            
+            <button id="rzp-button1" class="btn btn-outline-success">Pay with Razorpay</button>
+            <a href="{%url 'cash_on_delivery'%}" class="btn btn-outline-success">Cash on Delivery</a>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
 var options = {
@@ -19,11 +21,7 @@ var options = {
     "description": "Test Transaction",
     "image": "https://example.com/your_logo",
     "order_id": "{{order_id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-    "handler": function (response){
-        alert(response.razorpay_payment_id);
-        alert(response.razorpay_order_id);
-        alert(response.razorpay_signature)
-    },
+    "callback_url": "http://127.0.0.1:8000/payment/verification/",
     "prefill": {
         "name": "Gaurav Kumar",
         "email": "gaurav.kumar@example.com",
@@ -37,25 +35,14 @@ var options = {
     }
 };
 var rzp1 = new Razorpay(options);
-rzp1.on('payment.failed', function (response){
-        alert(response.error.code);
-        alert(response.error.description);
-        alert(response.error.source);
-        alert(response.error.step);
-        alert(response.error.reason);
-        alert(response.error.metadata.order_id);
-        alert(response.error.metadata.payment_id);
-});
 document.getElementById('rzp-button1').onclick = function(e){
     rzp1.open();
     e.preventDefault();
 }
 </script>
-    <button class="btn btn-outline-primary my-3">Cash on Delivery</button>
         </div>
         <div class="col-4"></div>
     </div>
-    <a href="{%url 'select_address'%}">back</a>
 </div>
 
 {%endblock%}
