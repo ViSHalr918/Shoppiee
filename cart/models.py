@@ -2,9 +2,11 @@ from django.db import models
 
 from django.contrib.auth.models import User
 
-from django.db.models import Sum
+from django.db.models import Sum,Avg
 
 import uuid
+
+
 
 
 from django.db.models.signals import post_save
@@ -119,6 +121,33 @@ class Product(models.Model):
     def __str__(self):
         return self.title
     
+    @property
+    def review_count(self):
+        return self.product_reviews.all().count()
+    
+
+    @property
+    def avg_rating(self):
+        return self.product_reviews.all().values('rating').aggregate(avg=Avg('rating')).get('avg',0)
+
+    
+from django.core.validators import MinValueValidator,MaxValueValidator
+
+class Reviews(models.Model):
+
+    product_object = models.ForeignKey(Product,on_delete=models.CASCADE,related_name="product_reviews")
+
+    user_object = models.ForeignKey(User,on_delete=models.CASCADE)
+
+    comment = models.TextField()
+
+    rating = models.FloatField(default=1,validators=[MinValueValidator(1),MaxValueValidator(5)])
+
+    
+
+
+
+    
 
 class Cash_On_Delivery(models.Model):
 
@@ -204,4 +233,10 @@ def create_basket(sender,instance,created,*args,**kwargs):
         WishList.objects.create(owner = instance)
 
 post_save.connect(sender=User,receiver=create_basket)
+
+
+
+
+
+
 

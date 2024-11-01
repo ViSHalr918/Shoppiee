@@ -1,0 +1,26 @@
+{%extends 'cart/base.html'%}
+
+{%block main_block%}
+
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <a href="{%url 'order_summary'%}" class="text-decoration-none"> <i class="fa-solid fa-arrow-left"></i> Back</a>
+
+        </div>
+        <div class="col-6 border border-2 shadow mt-4">
+            <h3 class="text-center my-4 ">Add Review</h3>
+
+            <form action="" method="post" enctype="multipart/form-data" class="  p-4">
+                {%csrf_token%}
+                {{form}}
+                
+                <button type="submit" class="btn btn-outline-primary  mt-2">Confirm</button>
+            </form>
+            
+        </div>
+        <div class="col-3"></div>
+    </div>
+</div>
+
+{%endblock%}

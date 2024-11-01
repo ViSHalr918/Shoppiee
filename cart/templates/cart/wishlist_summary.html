@@ -24,6 +24,7 @@
                   <p class="card-title text-capitalize">{{wi.product_object.title}}</p>
                   <p class="card-text text-capitalize"><strong>{{wi.product_object.price}}₹</strong></p>
                   <p class="card-text text-capitalize">Seller : {{wi.product_object.owner}}</p>
+                  
 
                   <a href="{%url 'cartitem_delete' wi.id%}" class="btn btn-outline-danger">Remove</a>
                   <a href="{%url 'product_detail' wi.product_object.id%}" class="btn btn-outline-primary mx-3">View</a>
@@ -37,7 +38,7 @@
 
   <div class=" my-3">
       <strong class="" >Total :₹{{total}}</strong><br>
-      <a href="{%url 'checkout'%}" class="btn btn-outline-primary mt-2">Checkout</a>
+      <a href="{%url 'select_address'%}" class="btn btn-outline-primary mt-2">Checkout</a>
   </div>
 
   {%else%}

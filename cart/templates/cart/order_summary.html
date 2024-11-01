@@ -3,60 +3,73 @@
 {%block main_block%}
 
 <div class="container-fluid">
-    <div class="row">
-        <a href="{%url 'index'%}" class="text-decoration-none"> <i class="fa-solid fa-arrow-left"></i> Back</a>
-    </div>
-
+  <div class="row">
+      <a href="{%url 'index'%}" class="text-decoration-none"> <i class="fa-solid fa-arrow-left"></i> Back</a>
 </div>
 <div class="container">
-    <h3 class="text-center">Your Orders</h3>
+  <div class="row">
     {%for o in orders%}
-     
-    <div class="row mt-3 p-4 ">
-      
-        <div class="card mb-3 p-2" style="max-width: 90%;">
-          {%for p in o.product_objects.all%}
-            <div class="row g-0">
-              <div class="col-md-2">
-                <img src="{{p.image.url}}" class="img-fluid rounded-start" alt="...">
-              </div>
-              <div class="col-md-8">
-                <div class="card-body ms-5">
-                  <h5 class="card-title">{{p.title}}</h5>
-                  <p class="card-text text-dark"><strong>Price : {{p.price}} ₹</strong></p>
-                                                   
-                  <p>
-                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
-                      Order details
-                  </button>
-                    <a href="{%url 'product_detail' p.id%}" class="btn btn-primary">View</a>
-                  </p>
-                  <div style="min-height: 0px;">
-                    <div class="collapse collapse-horizontal" id="collapseWidthExample">
-                      <div  style="width: 300px;">
-                        <p class="card-text"><small class="text-body-dark">Order id :  {{o.order_id}}</small></p>
 
-                        <p class="card-text"><small class="text-body-dark">Ordered Date :  {{o.create_date}}</small></p>
-                        <p class="card-text"><small class="text-body-dark">Order Status : 
-                          {%if o.is_paid%}
-                          Payment Completed
-                          {%else%}
-                          Payment Incomplete
-                          {%endif%}
-                      </small></p>
-                      </div>
-                    </div>
-                  </div>
-                
 
-                </div>
-              </div>
-            </div>
-            {%endfor%}
+    <div class="card mb-3 p-3" style="max-width: 90%;">
+      {%for p in o.product_objects.all%}
+      <div class="row g-0">
+        <div class="col-md-2">
+          <img src="{{p.image.url}}" class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">{{p.title}}</h5>
+            <p class="card-text"><strong>{{p.price}} Rs </strong></p>
+            <p class="card-text"></p>
+            
+            <p class="card-text "><small class="text-body-dark">Order id :  {{o.order_id}}</small></p>
+
+        <p class="card-text "><small class="text-body-dark">Delivery status : shipped </small></p>
+
+        <p class="card-text"><small class="text-body-dark">Ordered Date :  {{o.create_date}}</small></p>
+        <p class="card-text"><small class="text-body-dark ">Payment Status : 
+          {%if o.is_paid%}
+          Payment Completed
+          {%else%}
+          Payment Incomplete
+          {%endif%}
+        </small></p> 
+        <a href="{%url 'add_review' p.id%}"  class="text-decoration-none">Add review</a>
           </div>
+        </div>
+      </div>
+
+      
+        
+      
+
+
+
+
+
+      {%endfor%}
           
-    </div>
     
-    {%endfor%}  
-           
+    </div>
+    {%endfor%}
+    
+  </div>
+</div>
+
+
+
 {%endblock%}
+
+
+
+
+
+
+
+
+
+
+
+  
+  

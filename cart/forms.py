@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 from django.contrib.auth.models import User
 
-from cart.models import UserProfile,Product,Address
+from cart.models import UserProfile,Product,Address,Reviews
 
 
 class SignUpForm(UserCreationForm):
@@ -22,8 +22,8 @@ class SignUpForm(UserCreationForm):
         
 class LoginForm(forms.Form):
 
-    username = forms.CharField(widget=forms.TextInput(attrs={"class":"form-control"}))
-    password = forms.CharField(widget=forms.PasswordInput(attrs={"class":"form-control"}))
+    username = forms.CharField(widget=forms.TextInput(attrs={"class":"form-control mb-3"}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={"class":"form-control mb-3"}))
 
 
 class UserProfileForm(forms.ModelForm):
@@ -79,3 +79,17 @@ class AddressForm(forms.ModelForm):
             "label":forms.Select(attrs={"class":"form-control"})
         }
 
+
+
+class ReviewForm(forms.ModelForm):
+    
+
+    class Meta : 
+        model = Reviews
+
+        fields = ["comment","rating"]
+
+        widgets = {
+            "comment":forms.Textarea(attrs={"class":"form-control mb-3","rows":5}),
+            "rating":forms.NumberInput(attrs={"class":"form-control"})
+        }
